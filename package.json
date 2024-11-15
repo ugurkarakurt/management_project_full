@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,18 +15,27 @@
     "@emotion/react": "^11.13.3",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.13.0",
+    "@hookform/resolvers": "^3.9.1",
     "@mui/icons-material": "^6.1.7",
     "@mui/material": "^6.1.7",
     "@prisma/client": "^5.22.0",
+    "@types/js-cookie": "^3.0.6",
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
+    "js-cookie": "^3.0.5",
     "next": "14.0.3",
     "next-auth": "^4.24.10",
+    "nodemailer": "^6.9.16",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.53.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
