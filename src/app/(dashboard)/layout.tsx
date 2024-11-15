@@ -1,25 +1,39 @@
-// src/app/(dashboard)/layout.tsx
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { Navbar } from '@/components/dashboard/Navbar';
+"use client";
+import React, { useState } from "react";
+import { useDashboardCardAction } from "@/context/DashboardCardAction.context";
+import { LayoutProps } from "./dashboard.types";
+import Header from "@/components/layout/header/Header";
+import {
+  MainWrapper,
+  PageWrapper,
+  ContentContainer,
+  PageContent
+} from "./dashboard.styles";
+import MSidebar from "@/components/layout/sidebar/Sidebar";
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getServerSession();
+const RootLayout = ({ children }: LayoutProps) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const { device } = useDashboardCardAction();
 
-  if (!session) {
-    redirect('/login');
-  }
+  const handleMobileSidebarToggle = () => setMobileSidebarOpen(true);
+  const handleSidebarClose = () => setMobileSidebarOpen(false);
 
   return (
-    <div>
-      <Navbar />
-      <main>
-        {children}
-      </main>
-    </div>
+    <MainWrapper>
+      <MSidebar
+        isSidebarOpen={isSidebarOpen}
+        isMobileSidebarOpen={isMobileSidebarOpen}
+        onSidebarClose={handleSidebarClose}
+      />
+      <PageWrapper>
+        <Header toggleMobileSidebar={handleMobileSidebarToggle} />
+        <ContentContainer maxWidth={device || "lg"}>
+          <PageContent>{children}</PageContent>
+        </ContentContainer>
+      </PageWrapper>
+    </MainWrapper>
   );
-}
+};
+
+export default RootLayout;

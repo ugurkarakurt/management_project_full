@@ -1,6 +1,5 @@
 // src/app/layout.tsx
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import { SessionProvider } from '@/providers/SessionProvider';
+import RootProvider from '@/providers/Root.provider';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body>
-        <SessionProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </SessionProvider>
+        <RootProvider>
+          {children}
+        </RootProvider>
       </body>
     </html>
   );
