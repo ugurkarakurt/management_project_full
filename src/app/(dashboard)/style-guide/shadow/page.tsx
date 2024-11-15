@@ -22,7 +22,7 @@ const Shadow = () => {
       <DashboardCard title="Shadow">
         <Grid container spacing={2}>
           {[lightTheme, darkTheme].map((theme, index) => (
-            <Grid item xs={6} key={index}>
+            <Grid item xs={12} key={index}>
               <ThemeProvider theme={theme}>
                 <Box
                   sx={{

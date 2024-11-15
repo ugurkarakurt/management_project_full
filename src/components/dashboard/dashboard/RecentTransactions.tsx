@@ -1,5 +1,4 @@
 
-import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard';
 import {
   Timeline,
   TimelineItem,
@@ -11,6 +10,7 @@ import {
   timelineOppositeContentClasses,
 } from '@mui/lab';
 import { Link, Typography } from '@mui/material';
+import DashboardCard from '../shared/DashboardCard';
 
 const RecentTransactions = () => {
   return (
