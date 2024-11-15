@@ -24,7 +24,7 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: "MUI Components",
+    subheader: "Style Guide",
   },
   {
     id: uniqueId(),
