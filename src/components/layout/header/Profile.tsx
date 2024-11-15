@@ -29,7 +29,7 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-  
+
   const logOut = async (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
@@ -86,7 +86,7 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => router.push('/profile')}>
           <ListItemIcon>
             <IconUser width={20} />
           </ListItemIcon>

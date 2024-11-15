@@ -8,7 +8,8 @@ declare module 'next-auth' {
       id: string;
       email: string;
       name?: string | null;
-      role: Role;  // Role tipini Prisma'dan alıyoruz
+      image?: string | null;
+      role: Role;
     }
   }
 
