@@ -214,9 +214,9 @@ A: For type-safety, easy migrations, and modern API support.
 
 ## 🤝 Contact
 
-Project Owner - [@github_handle](https://github.com/github_handle)
+Project Owner - [@ugurkarakurt](https://github.com/ugurkarakurt)
 
-Project Link: [https://github.com/username/repo](https://github.com/username/repo)
+Project Link: [https://management-project-full.vercel.app/](https://management-project-full.vercel.app/)
 
 ---
 
