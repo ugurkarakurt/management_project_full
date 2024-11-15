@@ -1,7 +1,6 @@
 // app/api/user/update-profile/route.ts
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/[...nextauth]/options';
 
 export async function POST(req: Request) {

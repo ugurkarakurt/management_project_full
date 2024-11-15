@@ -1,7 +1,5 @@
-// components/profile/ProfileHeader.tsx
 'use client';
-
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { put } from '@vercel/blob';
 import { Avatar, Box, Typography, Button } from '@mui/material';
 import { useSession } from 'next-auth/react';
@@ -10,9 +8,16 @@ import { useNotification } from '@/context/Notification.context';
 import { profileService } from '@/services/profile';
 
 export function ProfileHeader() {
-  const { data: session, update } = useSession();
+  const { data: session, update, status } = useSession();
   const [uploading, setUploading] = useState(false);
   const { showNotification } = useNotification();
+  const [userData, setUserData] = useState(session?.user);
+
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      setUserData(session.user);
+    }
+  }, [session?.user, status]);
 
   const handleUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
@@ -25,22 +30,27 @@ export function ProfileHeader() {
         token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN
       });
 
-      const updatedUser = await profileService.updateImage(url);
-      await update({ ...session, user: { ...session?.user, image: updatedUser.image } });
+      const response = await profileService.updateImage(url);
+      if (response.success && response.user) {
+        await update();
+      }
       showNotification('Fotoğraf güncellendi', 'success');
     } catch (error) {
+      console.error('Upload error:', error);
       showNotification('Hata oluştu', 'error');
     } finally {
       setUploading(false);
     }
-  }, [session, update, showNotification]);
+  }, [update, showNotification]);
+
+  if (status === 'loading') return null;
 
   return (
     <Box display="flex" alignItems="center" gap={3} mb={4}>
       <Box position="relative">
         <Avatar
-          src={session?.user?.image || '/images/profile/user-1.jpg'}
-          alt={session?.user?.name || 'Profile'}
+          src={userData?.image || '/images/profile/user-1.jpg'}
+          alt={userData?.name || 'Profile'}
           sx={{ width: 120, height: 120 }}
         />
         <Button
@@ -67,8 +77,8 @@ export function ProfileHeader() {
         </Button>
       </Box>
       <Box>
-        <Typography variant="h5">{session?.user?.name}</Typography>
-        <Typography color="textSecondary">{session?.user?.email}</Typography>
+        <Typography variant="h5">{userData?.name}</Typography>
+        <Typography color="textSecondary">{userData?.email}</Typography>
       </Box>
     </Box>
   );
